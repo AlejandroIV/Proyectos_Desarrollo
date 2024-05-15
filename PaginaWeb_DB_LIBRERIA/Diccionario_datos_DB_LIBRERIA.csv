@@ -1,0 +1,175 @@
+CTLG_LIBRO_CATEGORIA,,,
+DESCRIPCIÓN: Contiene información sobre las categorías de los libros.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+cIdCategoria,CHAR,2,Identificador único de la categoría del libro.
+vcCategoria,VARCHAR,20,Nombre de la categoría del libro.
+vcDescripcion,VARCHAR,40,Descripción de la categoría del libro.
+dFechaCreacion,DATE,,Fecha de creación del registro.
+dFechaModificacion,DATE,,Fecha de la última modificación del registro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_cIdCategoria,PRIMARY,cIdCategoria,Clave primaria que identifica de manera única la categoría del libro.
+NN_vcCategoria,NOT_NULL,vcCategoria,El campo vcCategoria no puede contener valores nulos.
+NN_dFechaCreacion,NOT_NULL,dFechaCreacion,El campo dFechaCreacion no puede contener valores nulos.
+,,,
+CTLG_LIBRO,,,
+DESCRIPCIÓN: Contiene información sobre los libros.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdLibro,VARCHAR,4,Identificador único del libro.
+cIdCategoria,CHAR,2,Identificador único de la categoría del libro.
+vcTitulo,VARCHAR,150,Título del libro.
+vcAutores,VARCHAR,300,Autores del libro.
+siAnhoPublicacion,SMALLINT,,Año de publicación del libro.
+vcCiudadPublicacion,VARCHAR,100,Ciudad de publicación del libro.
+vcEditorial,VARCHAR,100,Editorial del libro.
+tiEdicion,TINYINT,,Número de edición del libro.
+cIsbn,CHAR,13, ISBN (International Standard Book Number) del libro.
+dFechaCreacion,DATE,,Fecha de creación del registro.
+dFechaModificacion,DATE,,Fecha de la última modificación del registro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdLibro,PRIMARY,vcIdLibro,Clave primaria que identifica de manera única el libro.
+FK_cIdCategoria,FOREIGN,cIdCategoria,Clave foránea que identifica de manera única la categoría del libro en la tabla CTLG_LIBRO_CATEGORIA.
+NN_vcTitulo,NOT_NULL,vcTitulo,El campo vcTitulo no puede contener valores nulos.
+NN_vcAutores,NOT_NULL,vcAutores,El campo vcAutores no puede contener valores nulos.
+NN_siAnhoPublicacion,NOT_NULL,siAnhoPublicacion,El campo siAnhoPublicacion no puede contener valores nulos.
+NN_vcCiudadPublicacion,NOT_NULL,vcCiudadPublicacion,El campo vcCiudadPublicacion no puede contener valores nulos.
+NN_vcEditorial,NOT_NULL,vcEditorial,El campo vcEditorial no puede contener valores nulos.
+NN_dFechaCreacion,NOT_NULL,dFechaCreacion,El campo dFechaCreacion no puede contener valores nulos.
+,,,
+CTLG_UBICACION,,,
+DESCRIPCIÓN: Contiene información sobre las ubicaciones físicas de la librería.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdUbicacion,VARCHAR,3,Identificador único de la ubicación de la librería.
+vcDescripcion,VARCHAR,40,Descripción de la ubicación de la librería.
+siCapacidad,SMALLINT,,Capacidad de la ubicación (cantidad de libros que puede almacenar).
+dFechaCreacion,DATE,,Fecha de creación del registro.
+dFechaModificacion,DATE,,Fecha de la última modificación del registro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdUbicacion,PRIMARY,vcIdUbicacion,Clave primaria que identifica de manera única la ubicación de la librería.
+NN_siCapacidad,NOT_NULL,siCapacidad,El campo siCapacidad no puede contener valores nulos.
+NN_dFechaCreacion,NOT_NULL,dFechaCreacion,El campo dFechaCreacion no puede contener valores nulos.
+,,,
+CTLG_ESTADO,,,
+"DESCRIPCIÓN: Contiene información sobre los estados de los usuarios, prestamos y suspensiones.",,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+iEstado,INT,,Identificador único del estado.
+vcEstado,VARCHAR,40,Nombre del estado.
+vcDescripcion,VARCHAR,40,Descripción del estado.
+dFechaCreacion,DATE,,Fecha de creación del registro.
+dFechaModificacion,DATE,,Fecha de la última modificación del registro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_iEstado,PRIMARY,iEstado,Clave primaria que identifica de manera única el estado.
+NN_vcEstado,NOT_NULL,vcEstado,El campo vcEstado no puede contener valores nulos.
+NN_dFechaCreacion,NOT_NULL,dFechaCreacion,El campo dFechaCreacion no puede contener valores nulos.
+,,,
+TBL_STOCK,,,
+DESCRIPCIÓN: Mantiene el registro de la cantidad disponible de un libro en una ubicación.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+iIdStock,INT,,Identificador único del stock.
+vcIdLibro,VARCHAR,4,Identificador único del libro.
+vcIdUbicacion,VARCHAR,3,Identificador único de la ubicación de la librería.
+siCantidadDisponible,SMALLINT,,Cantidad disponible de libros en la ubicación.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_iIdStock,PRIMARY,iIdStock,Clave primaria que identifica de manera única el stock (autoincremental).
+FK_vcIdLibro,FOREIGN,vcIdLibro,Clave foránea que identifica de manera única el libro en la tabla CTLG_LIBRO.
+FK_vcIdUbicacion,FOREIGN,vcIdUbicacion,Clave foránea que identifica de manera única la ubicación de la librería en la tabla CTLG_UBICACION.
+NN_siCantidadDisponible,NOT_NULL,siCantidadDisponible,El campo siCantidadDisponible no puede contener valores nulos.
+,,,
+TBL_LIBRO_VENTA,,,
+DESCRIPCIÓN: Mantiene el registro de los libros en venta.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+iIdLibroVenta,CHAR,4,Identificador único del libro en venta.
+vcIdLibro,VARCHAR,4,Identificador único del libro.
+siCantidadParaVenta,SMALLINT,,Cantidad disponible de libros para venta.
+decPrecioUnitario,DECIMAL,"7, 2",Precio unitario del libro en venta.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_iIdLibroVenta,PRIMARY,iIdLibroVenta,Clave primaria que identifica de manera única el libro en venta.
+FK_vcIdLibro,FOREIGN,vcIdLibro,Clave foránea que identifica de manera única el libro en la tabla CTLG_LIBRO.
+NN_siCantidadParaVenta,NOT_NULL,siCantidadParaVenta,El campo siCantidadParaVenta no puede contener valores nulos.
+NN_decPrecioUnitario,NOT_NULL,decPrecioUnitario,El campo decPrecioUnitario no puede contener valores nulos.
+,,,
+TBL_VENTA,,,
+DESCRIPCIÓN: Mantiene el registro de las ventas de libros.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+iIdVenta,INT,,Identificador único de la venta.
+iIdLibroVenta,CHAR,4,Identificador único del libro en venta.
+siCantidadVendida,SMALLINT,,Cantidad de libros vendidos.
+decTotalVenta,DECIMAL,"9,2",Total de la venta.
+vcMetodoPago,VARCHAR,30,Método de pago utilizado en la venta.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_iIdVenta,PRIMARY,iIdVenta,Clave primaria que identifica de manera única la venta.
+FK_iIdLibroVenta,FOREIGN,iIdLibroVenta,Clave foránea que identifica de manera única el libro en venta en la tabla TBL_LIBRO_VENTA.
+NN_siCantidadVendida,NOT_NULL,siCantidadVendida,El campo siCantidadVendida no puede contener valores nulos.
+NN_decTotalVenta,NOT_NULL,decTotalVenta,El campo decTotalVenta no puede contener valores nulos.
+NN_vcMetodoPago,NOT_NULL,vcMetodoPago,El campo vcMetodoPago no puede contener valores nulos.
+,,,
+TBL_PERSONA,,,
+DESCRIPCIÓN: Mantiene el registro de las personas que visitan la librería.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdPersona,VARCHAR,10,Identificador único de la persona.
+vcNombre,VARCHAR,50,Nombre de la persona.
+vcApellidoPaterno,VARCHAR,50,Apellido paterno de la persona.
+vcApellidoMaterno,VARCHAR,50,Apellido materno de la persona.
+dFechaNacimiento,DATE,,Fecha de nacimiento de la persona.
+cGenero,CHAR,1,Género de la persona.
+vcDireccion,VARCHAR,150,Dirección de la persona.
+vcTelefono,VARCHAR,15,Número de teléfono de la persona.
+vcCorreoElectronico,VARCHAR,254,Correo electrónico de la persona.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdPersona,PRIMARY,vcIdPersona,Clave primaria que identifica de manera única la persona.
+NN_vcNombre,NOT_NULL,vcNombre,El campo vcNombre no puede contener valores nulos.
+,,,
+TBL_USUARIO,,,
+DESCRIPCIÓN: Mantiene el registro de los usuarios de la librería.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdUsuario,VARCHAR,7,Identificador único del usuario.
+vcIdPersona,VARCHAR,10,Identificador único de la persona.
+iEstado,INT,,Identificador único del estado.
+dFechaInicio,DATE,,Fecha de registro del usuario.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdUsuario,PRIMARY,vcIdUsuario,Clave primaria que identifica de manera única el usuario.
+FK_vcIdPersona,FOREIGN,iIdLibroVenta,Clave foránea que identifica de manera única la persona en la tabla TBL_PERSONA.
+FK_iEstado,FOREIGN,iIdLibroVenta,Clave foránea que identifica de manera única el estado en la tabla CTLG_ESTADO.
+NN_dFechaInicio,NOT_NULL,dFechaInicio,El campo dFechaInicio no puede contener valores nulos.
+,,,
+TBL_PRESMATO,,,
+DESCRIPCIÓN: Mantiene el registro de los prestamos de libros realizados a los usuarios.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdPrestamo,VARCHAR,6,Identificador único del préstamo.
+vcIdUsuario,VARCHAR,7,Identificador único del usuario.
+iEstado,INT,,Identificador único del estado.
+vcIdLibro,VARCHAR,4,Identificador único del libro.
+dFechaPrestamo,DATE,,Fecha en la que se realizó el préstamo.
+dFechaDevolucion,DATE,,Fecha límite de devolución del libro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdPrestamo,PRIMARY,vcIdPrestamo,Clave primaria que identifica de manera única el préstamo.
+FK_vcIdUsuario,FOREIGN,vcIdUsuario,Clave foránea que identifica de manera única el usuario en la tabla TBL_USUARIO.
+FK_iEstado,FOREIGN,iEstado,Clave foránea que identifica de manera única el estado en la tabla CTLG_ESTADO.
+FK_vcIdLibro,FOREIGN,vcIdLibro,Clave foránea que identifica de manera única el libro en la tabla CTLG_LIBRO.
+NN_dFechaPrestamo,NOT_NULL,dFechaPrestamo,El campo dFechaPrestamo no puede contener valores nulos.
+NN_dFechaDevolucion,NOT_NULL,dFechaDevolucion,El campo dFechaDevolucion no puede contener valores nulos.
+,,,
+TBL_SUSPENSION,,,
+DESCRIPCIÓN: Mantiene el registro de las suspensiones realizadas a los usuarios.,,,
+NOMBRE DEL CAMPO,TIPO DE DATO,LOGITUD,DESCRIPCIÓN
+vcIdSuspension,VARCHAR,5,Identificador único de la suspensión.
+vcIdUsuario,VARCHAR,7,Identificador único del usuario.
+iEstado,INT,,Identificador único del estado.
+vcDescripcion,VARCHAR,40,Descripción de la suspensión.
+dFechaSuspension,DATE,,Fecha en la que se realizó la suspensión.
+dFechaModificacion,DATE,,Fecha de la última modificación del registro.
+RESTRICCIONES,,,
+RESTRICCIÓN,TIPO,CAMPO,DESCRIPCIÓN
+PK_vcIdSuspension,PRIMARY,vcIdSuspension,Clave primaria que identifica de manera única la suspensión.
+FK_vcIdUsuario,FOREIGN,vcIdUsuario,Clave foránea que identifica de manera única el usuario en la tabla TBL_USUARIO.
+FK_iEstado,FOREIGN,iEstado,Clave foránea que identifica de manera única el estado en la tabla CTLG_ESTADO.
+NN_dFechaSuspension,NOT_NULL,dFechaSuspension,El campo dFechaSuspension no puede contener valores nulos.

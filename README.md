@@ -1,0 +1,1 @@
+Este repositorio contiene código de proyectos relacionados con diseños de bases de datos y páginas web para la presentación de los datos.
